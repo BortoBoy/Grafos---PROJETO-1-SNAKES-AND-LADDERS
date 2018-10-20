@@ -5,17 +5,9 @@ Snakes and Ladders é um famoso jogo de tabuleiro em que a cada rodada um jogado
 
 Com base nas informações, responda:
 
+#a)Especifique a matriz de transição de estados P que define a função de transição da cadeia de Markov Homogênea.
 
-a) Especifique a matriz de transição de estados P que define a função de transição da cadeia de Markov Homogênea.
-
-b) Desenvolva um script em Python para calcular a distribuição estacionária da cadeia de Markov homogênea em questão. Qual é a probabilidade de um jogador vencer o jogo, ou seja, qual a probabilidade de se atingir o estado 36 no longo prazo? Considere k = 100 um número suficiente de iterações no Power Method. Qual o estados mais provável de ser acessado? (Lembre-se que que o último estado, 36, é absorvente, ou seja, uma vez atingido não há saída)
-
-c) Especifique a matriz P_ (P_barra) referente ao modelo Pagerank considerando alpha = 0.1. Considerando k = 100, aplique o Power method e compare o resultado com o obtido no item b). As distribuições estacionárias obtidas em b) e c) são iguais ou diferentes?
-
-
-Answers
-
-a) A matriz foi criada com base na imagem inserida na descrição do trabalho. Foram criados duas listas, uma para as cobras(snakes) e outra para escadas (leaders). Tais listas possuem tuplas bidimencionais onde o primeiro elemento é o começo do atalho (base da escada ou cabeça da cobra) e o segundo elemento é a o final (topo da escada ou rabo da cobra).
+A matriz foi criada com base na imagem inserida na descrição do trabalho. Foram criados duas listas, uma para as cobras(snakes) e outra para escadas (leaders). Tais listas possuem tuplas bidimencionais onde o primeiro elemento é o começo do atalho (base da escada ou cabeça da cobra) e o segundo elemento é a o final (topo da escada ou rabo da cobra).
 
 	_leaders = [(2,15),(5,7),(9,27),(18,29),(25,35)]
 	_snakes = [(17,4),(24,16),(20,6),(34,12),(32,30)]
@@ -74,7 +66,9 @@ Essa função gera uma matriz quadrada de dimensão igual ao número de estados.
 
 Cada linha da tabela corresponde à uma casa, e cada valor na linha corresponde à probabilidade de ir para o estado referente a coluna na próxima jogada. Assim, casas que possuem começo de atalhos possuem linhas zeradas (soma dos elementos da linha igual a zero), pois o jogador nunca estará nesse estado, sempre será levado para o final do atalho. Da mesma forma, nenhuma das outras linhas pode ter probabilidade de saltar para um estado zerado, isso é, se a linha x é zerada, a coluna x também é, pois nenhuma linha pode saltar para este estado.
 
-b) Aṕos gerar a tabela em a) foram implementadas funções para validar esta mesma, visto que, como pode possuir um numero muito grande de de entradas, nesse caso 36^2 = 1296, está sucetpivel à muitos erros. As funções foram criadas para verificar propriedades da tabela, como linhas e colunas zeradas e printar as transições para melhor visualização das snakes and leaders.
+#b)Desenvolva um script em Python para calcular a distribuição estacionária da cadeia de Markov homogênea em questão. Qual é a probabilidade de um jogador vencer o jogo, ou seja, qual a probabilidade de se atingir o estado 36 no longo prazo? Considere k = 100 um número suficiente de iterações no Power Method. Qual o estados mais provável de ser acessado? (Lembre-se que que o último estado, 36, é absorvente, ou seja, uma vez atingido não há saída)
+
+Aṕos gerar a tabela em a) foram implementadas funções para validar esta mesma, visto que, como pode possuir um numero muito grande de de entradas, nesse caso 36^2 = 1296, está sucetpivel à muitos erros. As funções foram criadas para verificar propriedades da tabela, como linhas e colunas zeradas e printar as transições para melhor visualização das snakes and leaders.
 
 	PValidator
 
@@ -86,11 +80,30 @@ Em seguida foi criado o método pricipal do problema, que realiza o Power Method
 
 	PowerMethod
 
-Um método para validação da matriz elevada também foi implementado, para verificar se a soma de cada linha é igual a 1.
+Um método para validação da matriz elevada também foi implementado, para verificar se a soma de cada linha é igual a 1. Esses métodos de validação foram muito importantes na hora de verificar os erros inseridos na matriz.
 
 	PoweredPValidator
 
-Esses métodos de validação foram muito importantes na hora de verificar os erros inseridos na matriz.
+A distribuição estacionária encontrada para 100 iterações foi como esperada:
+
+	w0 para 100
+
+O ultimo estado, 36, está muito próximo de 1 e todos os outros muito próximos de 0.
+
+
+#c) Especifique a matriz P_ (P_barra) referente ao modelo Pagerank considerando alpha = 0.1. Considerando k = 100, aplique o Power method e compare o resultado com o obtido no item b). As distribuições estacionárias obtidas em b) e c) são iguais ou diferentes?
+
+A matriz P_ foi especificada usando a função PBarraSpawer que se encontra no arquibo pagerank.py, junot com ela há também um método que printa a soma de cada linha, para verificar a validação desta.
+
+	PBarraSpawer
+
+A matriz Pbarra é gerada e logo depois sua distribuição estacionária é calculada. Com as funções já implementadas descritas acima. É possível notar que, para:
+
+	- k = 100
+	- k = 200
+	- k = 1000
+
+
 
 
 
